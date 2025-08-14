@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jogo Sushi Romântico</title>
+  <style>
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    /* Gradiente de fundo rosa e creme */
+    background: linear-gradient(135deg, #ffe6f0, #fff8e1);
+    background-attachment: fixed;
+}
+#prato {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    max-width: 400px;
+    margin-top: 20px;
+    min-height: 200px;
+    border: 2px dashed #f8c8d8;
+    padding: 10px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.85);
+    font-size: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+#flor {
+    font-size: 3rem;
+    margin-top: 20px;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 1.5s ease;
+}
+#mensagem {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 1.4em;
+    max-width: 90%;
+}
+.botao-sushi {
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    font-size: 2rem;
+    border-radius: 10px;
+    background: #fff;
+    border: 2px solid #f8c8d8;
+    cursor: pointer;
+    touch-action: manipulation;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transition: transform 0.1s ease;
+}
+.botao-sushi span {
+    font-size: 0.7rem;
+    margin-top: 3px;
+}
+.botao-sushi:active {
+    transform: scale(0.9);
+}
+</style>
+
+</head>
+<body>
+
+<h2>Monte o prato do AMOR DA MINHA VIDA 🍣🍙🥟🌯</h2>
+<p>Pedido: 2 Nigiri, 3 Uramaki, 1 Hot Roll (🥟) e 1 Temaki</p>
+
+<div style="display:flex; flex-wrap:wrap; justify-content:center;">
+    <button class="botao-sushi" id="nigiri">🍣<span>Nigiri</span></button>
+    <button class="botao-sushi" id="uramaki">🍙<span>Uramaki</span></button>
+    <button class="botao-sushi" id="hotroll">🥟<span>Hot Roll</span></button>
+    <button class="botao-sushi" id="temaki">🌯<span>Temaki</span></button>
+</div>
+
+<div id="prato"></div>
+<div id="flor">🌸</div>
+<div id="mensagem"></div>
+
+<script>
+const prato = document.getElementById('prato');
+const mensagem = document.getElementById('mensagem');
+const flor = document.getElementById('flor');
+
+let pedidoYasmin = { nigiri: 2, uramaki: 3, hotroll: 1, temaki: 1 };
+let pratoAtual = { nigiri: 0, uramaki: 0, hotroll: 0, temaki: 0 };
+let mensagemMostrada = false;
+
+function adicionarSushi(tipo, emoji, nome) {
+    pratoAtual[tipo]++;
+    prato.innerHTML += `<div style="display:flex; flex-direction:column; align-items:center; margin:3px;">${emoji}<span style="font-size:0.6rem">${nome}</span></div>`;
+    verificarPedido();
+}
+
+function verificarPedido() {
+    if (!mensagemMostrada &&
+        pratoAtual.nigiri === pedidoYasmin.nigiri &&
+        pratoAtual.uramaki === pedidoYasmin.uramaki &&
+        pratoAtual.hotroll === pedidoYasmin.hotroll &&
+        pratoAtual.temaki === pedidoYasmin.temaki
+    ) {
+        mensagemMostrada = true;
+        mostrarMensagem();
+    }
+}
+
+function mostrarMensagem() {
+    let texto = "Meu amor feliz mesversário todo esse tempo ao seu lado foi perfeito e continuo me apaixonando todos os dias eu to tão ansioso para o nosso casamento FELIZ 1 ANO E 2 MESES MINHA RAINHA EU TE AMO INFINITAMENTE ❤️";
+    mensagem.innerHTML = '';
+    flor.style.opacity = 1;
+    flor.style.transform = 'scale(1)';
+    let i = 0;
+    function digitar() {
+        if (i < texto.length) {
+            mensagem.innerHTML += texto.charAt(i);
+            i++;
+            setTimeout(digitar, 50);
+        }
+    }
+    digitar();
+}
+
+// Eventos touch/click
+document.getElementById('nigiri').addEventListener('click', () => adicionarSushi('nigiri','🍣','Nigiri'));
+document.getElementById('uramaki').addEventListener('click', () => adicionarSushi('uramaki','🍙','Uramaki'));
+document.getElementById('hotroll').addEventListener('click', () => adicionarSushi('hotroll','🥟','Hot Roll'));
+document.getElementById('temaki').addEventListener('click', () => adicionarSushi('temaki','🌯','Temaki'));
+</script>
+
+</body>
+</html>
